@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="/bootstrap-material-design/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top"
+            alt=""> Bootstrap
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['home']">Home
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['users']">Users</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['bands']">Bands</a>
+            </li>
+
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (keyup.enter)='searchHeroe(searchText.value)'
+                #searchText>
+            <!-- #searchText crea una variable que hace ref al input -->
+            <!-- <a (click)="searchHeroe(searchText.value)" class="btn btn-outline-success my-2 my-sm-0" type="">Search</a> -->
+        </ul>
+    </div>
+</nav>
