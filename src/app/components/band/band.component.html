@@ -1,3 +1,19 @@
-<p>
-  band works!
-</p>
+<div class="container">
+  <div class="row" style="margin-top:20px;">
+
+    <div class="card text-center">
+      <!-- <img class="card-img-top" src="{{bandService.urlBase+ 'band/get-image/'+band._id}}" alt=""> -->
+      <div class="card-body">
+        <span class="badge badge-pill badge-primary">{{band.instrument}}</span>
+        <span class="badge badge-pill badge-secondary">{{band.style}}</span>
+
+        <h6 class="card-header">{{band.name | uppercase}}</h6>
+        <p class="card-text">{{band.about}}</p>
+        <span *ngFor="let user of band.members" class="badge badge-pill badge-secondary" [routerLink]="['/user'+ user._id]">{{user.name}}</span>
+
+      </div>
+    </div>
+  </div>
+  <a [routerLink]="['/bands']" class="btn">Volver</a>
+
+</div>

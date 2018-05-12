@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms'
 
 
@@ -9,18 +10,17 @@ import { NgForm } from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
   user: Object = {
-    name: null,
+    username: null,
     password: null
   }
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    console.log('hola')
   }
 
-  guardar(forma: any) {
-    console.log("formulario guardado");
-    console.log(forma.value);
-    console.log(forma);
+  login(formLogin) {
+    console.log(formLogin)
+    this.auth.login(formLogin.value.username, formLogin.value.password)
   }
-
 }

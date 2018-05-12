@@ -1,9 +1,9 @@
-<form (ngSubmit)="guardar(forma)" novalidate="" #forma="ngForm">
+<form (ngSubmit)="login(formLogin)" novalidate="" #formLogin="ngForm">
   <div class="form-group row">
     <!-- <label>User</label> -->
-    <input type="text" class="form-control" placeholder="Username/Password" name="name" [ngModel]="user.name" minlength="3"
-      required #name="ngModel">
-    <div *ngIf="name.errors?.required">
+    <input type="text" class="form-control" placeholder="Username/Password" name="username" [ngModel]="user.username" minlength="3"
+      required #username="ngModel">
+    <div *ngIf="username.errors?.required">
       Username or email required
     </div>
   </div>
@@ -13,9 +13,6 @@
     <input type="text" class="form-control" placeholder="Password" name="password" [ngModel]="user.password" minlength="3" required #password="ngModel">
     <div *ngIf="password.errors?.required">
       Password is required
-    </div>
-    <div *ngIf="password.errors?.minlength">
-      {{password.errors.minlength.actualLength}} de {{password.errors.minlength.requiredLength}}
     </div>
   </div>
   

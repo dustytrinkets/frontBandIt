@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 import { AppComponent } from './app.component';
@@ -15,6 +19,10 @@ import { HomeComponent } from './components/home/home.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { SearchBandComponent } from './components/search-band/search-band.component';
 
+// Services - providers
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
+import { BandService } from './services/band.service';
 
 // routes
 import { app_routing } from './app.routes'
@@ -37,11 +45,13 @@ import { app_routing } from './app.routes'
     SearchBandComponent
   ],
   imports: [
-    app_routing,
     BrowserModule,
-    FormsModule
+    app_routing,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AuthService, UserService, BandService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

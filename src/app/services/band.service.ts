@@ -8,22 +8,21 @@ import 'rxjs/add/operator/map';
 
 
 
-export interface User {
+export interface Band {
   _id: number,
   name: string,
-  email:string,
-  age: number,
   about: string,
-  bands: string[],
+  url: string[],
+  members: string[],
   style: string[],
   instrument: string[],
   image: string
 }
 
 @Injectable()
-export class UserService {
-  usersToDisplay: any;
-  users: any;
+export class BandService {
+  bandsToDisplay: any;
+  bands: any;
   // Como todas las llamadas a nuestra API empiezan igual definimos una variable para no repetir codigo
   urlBase: string = "http://localhost:3977/api/"
   // Usamos la variable errors para poder mostrar los errores en el html cuando existan.
@@ -36,34 +35,30 @@ export class UserService {
 
   }
 
-  uploadImage(fileToUpload: File, userId: string) {
-    
+  uploadPoster(fileToUpload: File, bandId: string) {
     // para subir una imagen, tal y como hemos hecho en postman necesitamos enviarle un formData con la imagen.
     const formData: FormData = new FormData();
-    formData.append('image', fileToUpload, fileToUpload.name);
+    formData.append('poster', fileToUpload, fileToUpload.name);
     // Concatenamos urlBase con el endpoint donde queremos apuntar.
     this.http
-      .post(this.urlBase + "user/insertImage/" + userId, formData).subscribe(resp => {
+      .post(this.urlBase + "band/insertImage/" + bandId, formData).subscribe(resp => {
         console.log(resp);
       }, err => {
         console.log(err);
       });
   }
 
-  getUsers():any {
-    
-    let headers = new HttpHeaders({ "authorization": this.authService.getToken() })
+  getBands(): any {
     // Peticion GET para obtener todas las peliculas
-    // Vaciamos users ya que vamos a obtener todas de nuevo
-    this.users = []
-    return this.http.get(this.urlBase + 'user', { headers: headers }).subscribe(data => {
+    this.bands = []
+    return this.http.get(this.urlBase + 'band').subscribe(data => {
       for (let index in data) {
-        this.users.push(data[index])
+        this.bands.push(data[index])
       }
       console.log(data)
-      // Usamos una variable auxiliar usersTodisplay para no tocar toda la coleccion de pelicuals que hemos obtenido.
-      this.usersToDisplay = this.users;
-      console.log(this.usersToDisplay)
+      // Usamos una variable auxiliar bandsTodisplay para no tocar toda la coleccion de pelicuals que hemos obtenido.
+      this.bandsToDisplay = this.bands;
+      console.log(this.bandsToDisplay)
       console.log("termina la descarga de usuarios");
 
     }, err => {
@@ -73,45 +68,41 @@ export class UserService {
     });
   }
 
-  searchUsers(term: string) {
+  searchBands(term: string) {
     // Buscamos peliculas dentro de movies y mostramos las que coincidan.
     // Esto es una manera de hacerlo, otra manera seria llamar a la API para obtener las peliculas que coincidan directamente desde base de datos
-    let users_list: User[] = [];
-    for (let user of this.users) {
-      if (user.name.toLowerCase().includes(term.toLowerCase())) {
-        users_list.push(user);
+    let bands_list: Band[] = [];
+    for (let band of this.bands) {
+      if (band.name.toLowerCase().includes(term.toLowerCase())) {
+        bands_list.push(band);
       }
     }
-    this.usersToDisplay = users_list
+    this.bandsToDisplay = bands_list
   }
 
-  getUser(id: number): User {
-    console.log(this.usersToDisplay)
-    for (let user of this.usersToDisplay) {
-      if (user._id == id) {
-        return user;
+  getBand(id: number): Band {
+    console.log(this.bandsToDisplay)
+    for (let band of this.bandsToDisplay) {
+      if (band._id == id) {
+        return band;
       }
     }
   }
 
 
 
-  addUser(user: User, fileToUpload: File) {
-    console.log(user)
-    
-    this.http.post(this.urlBase + "user", user).subscribe((resp: any) => {
+  addBand(band: Band) {
+    console.log(band)
+
+    this.http.post(this.urlBase + "band", band).subscribe((resp: any) => {
       console.log(resp);
-      console.log(fileToUpload)
-      this.uploadImage(fileToUpload, resp._id)
-      this.router.navigate(['/users'])
-      
 
-      
     },
       (err) => {
         console.log("error");
         console.log(err.message);
-        this.router.navigate(['/home'])
+        // Si hay un error redirigimos al login.
+        this.router.navigate(['/login'])
       });
   }
 }

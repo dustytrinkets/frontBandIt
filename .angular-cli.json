@@ -19,12 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
-        "../node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css"
+        "styles.css"
       ],
-      "scripts": [
-        "../node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min.js"
-      ],
+      "scripts": [ ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
